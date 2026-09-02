@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Nikhitha ❤️</title>
+<style>
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#ff758c,#ff7eb3,#8e8cff);color:white;text-align:center;overflow-x:hidden}
+section{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:25px}
+.card{width:min(650px,100%);padding:30px 20px;border-radius:30px;background:rgba(255,255,255,.15);backdrop-filter:blur(12px);box-shadow:0 15px 45px rgba(0,0,0,.25)}
+h1{font-size:clamp(38px,11vw,62px);margin:10px 0}h2{font-size:28px}p{font-size:18px;line-height:1.6}
+button{border:0;border-radius:999px;padding:15px 25px;margin:10px 5px;font-size:17px;font-weight:bold;background:white;color:#e94f83;box-shadow:0 8px 20px rgba(0,0,0,.2);cursor:pointer}
+button:active{transform:scale(.95)}.hidden{display:none!important}.emoji{font-size:55px}.fade{animation:fade .9s ease}
+@keyframes fade{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.gallery{position:relative;height:430px;margin:20px auto;max-width:340px}
+.gallery img{position:absolute;left:0;top:0;width:100%;height:410px;object-fit:cover;border-radius:22px;border:3px solid white;box-shadow:0 8px 25px rgba(0,0,0,.3);opacity:0;transition:opacity .7s}
+.gallery img.active{opacity:1}.dots{margin-top:5px}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.4);margin:4px}.dot.active{background:white}
+.heart{position:fixed;top:-40px;font-size:25px;z-index:10;pointer-events:none;animation:fall 5s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg);opacity:0}}
+#typing{min-height:150px}#gameArea{height:200px;position:relative;border:2px dashed rgba(255,255,255,.6);border-radius:20px;margin-top:15px;overflow:hidden}
+#catch{position:absolute;display:none;font-size:35px;background:none;padding:0;box-shadow:none}.small{font-size:14px;opacity:.8}
+</style>
+</head>
+<body>
+<section id="start"><div class="card fade">
+<div class="emoji">🎁</div><h1>Hey Nikhitha! 👀</h1>
+<p>I made a tiny surprise for my <b>one and only sister</b> ❤️</p>
+<p>Ready to open it? 😜</p><button onclick="start()">Open Your Surprise 🎁</button>
+</div></section>
+
+<section id="main" class="hidden"><div class="card fade">
+<div class="emoji">🎉</div><h1>Happy Birthday<br>Nikhitha! ❤️</h1>
+<p><b>One sister. One original. No replacement. 😂</b></p>
+<div class="gallery">
+<img src="memory_1.jpg.jpeg" class="active">
+<img src="memory_2.jpg.jpeg"><img src="memory_3.jpg.jpeg">
+<img src="memory_4.jpg.jpeg"><img src="memory_5.jpg.jpeg">
+</div>
+<div class="dots" id="dots"></div>
+<button onclick="prev()">⬅️</button><button onclick="next()">➡️</button>
+<p>📸 A few memories of my favorite troublemaker 😂❤️</p>
+<button onclick="document.getElementById('game').scrollIntoView()">Next Surprise ✨</button>
+</div></section>
+
+<section id="game" class="hidden"><div class="card fade">
+<h2>❤️ Catch the Heart!</h2><p>Tap the heart 5 times to unlock your special message 😜</p>
+<div id="gameArea"><button id="catch" onclick="catchHeart()">❤️</button></div>
+<p id="score">Hearts caught: 0 / 5</p>
+</div></section>
+
+<section id="message" class="hidden"><div class="card fade">
+<div class="emoji">💌</div><h2>A Message For You</h2><p id="typing"></p>
+<button onclick="finish()">One Last Surprise 🎁</button>
+</div></section>
+
+<section id="final" class="hidden"><div class="card fade">
+<div class="emoji">🎂🎉❤️</div><h1>Happy Birthday,<br>Nikhitha!</h1>
+<p>You annoy me, you tease me, we fight... 😂</p>
+<p>But I wouldn't trade you for any other sister. ❤️</p>
+<p><b>Stay happy, keep smiling and enjoy your day! ✨</b></p>
+<h2>Love you, crazy sister! 🫶</h2><p class="small">— Your Brother 😎</p>
+</div></section>
+
+<script>
+let slide=0,imgs=[],dots=[],score=0;
+const text="Thank you for all the laughs, fights, teasing and crazy memories. You make life more fun just by being my sister. I hope your birthday is full of happiness, smiles and amazing memories. ❤️";
+function start(){document.getElementById("start").classList.add("hidden");document.getElementById("main").classList.remove("hidden");document.getElementById("game").classList.remove("hidden");imgs=[...document.querySelectorAll(".gallery img")];dots=imgs.map((_,i)=>{let d=document.createElement("span");d.className="dot"+(i===0?" active":"");document.getElementById("dots").appendChild(d);return d});for(let i=0;i<60;i++)setTimeout(heart,i*50);setInterval(next,3500);moveHeart()}
+function show(){imgs.forEach((x,i)=>x.classList.toggle("active",i===slide));dots.forEach((x,i)=>x.classList.toggle("active",i===slide))}
+function next(){if(!imgs.length)return;slide=(slide+1)%imgs.length;show()}
+function prev(){if(!imgs.length)return;slide=(slide-1+imgs.length)%imgs.length;show()}
+function heart(){let h=document.createElement("div");h.className="heart";h.textContent=["❤️","💖","💕","✨","🎉"][Math.floor(Math.random()*5)];h.style.left=Math.random()*100+"vw";h.style.animationDuration=3+Math.random()*3+"s";document.body.appendChild(h);setTimeout(()=>h.remove(),6500)}
+function catchHeart(){score++;document.getElementById("score").textContent=`Hearts caught: ${score} / 5`;if(score>=5){document.getElementById("game").classList.add("hidden");document.getElementById("message").classList.remove("hidden");typeText()}else moveHeart()}
+function moveHeart(){let b=document.getElementById("catch");b.style.display="block";b.style.left=Math.random()*85+"%";b.style.top=Math.random()*70+"%"}
+function typeText(){let i=0,el=document.getElementById("typing");el.textContent="";let t=setInterval(()=>{el.textContent+=text[i++];if(i>=text.length)clearInterval(t)},28)}
+function finish(){document.getElementById("message").classList.add("hidden");document.getElementById("final").classList.remove("hidden");for(let i=0;i<80;i++)setTimeout(heart,i*35)}
+</script>
+</body>
+</html>
